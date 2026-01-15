@@ -1,0 +1,14 @@
+# 1. 보안 정보
+.env
+certs/
+*.key
+*.crt
+
+# 2. Go 빌드 결과물 및 임시파일
+go-app/main/
+go-app/tmp/
+
+# 3. OS 및 에디터 임시 파일
+.DS_Store
+.idea/
+.vscode/
