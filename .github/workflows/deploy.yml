@@ -2,7 +2,7 @@ name: Deploy to Raspberry Pi
 
 on:
   push:
-    runs-on: [ "main" ]     # main 브랜치에 푸시될 때만 실행
+    branches: [ "main" ]     # main 브랜치에 푸시될 때만 실행
 
 jobs:
   deploy:
