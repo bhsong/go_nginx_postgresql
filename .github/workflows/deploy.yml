@@ -1,0 +1,33 @@
+name: Deploy to Raspberry Pi
+
+on:
+  push:
+    runs-on: [ "main" ]     # main 브랜치에 푸시될 때만 실행
+
+jobs:
+  deploy:
+    runs-on: self-hosted    # 중요: 라즈베리파이(Runner)에서 실행
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 1. Github Secrets를 이용해 .env 파일 생성
+    - name: Create .env file
+      run: |
+        echo "POSTGRES_USER=${{ secrets.DB_USER }}" > .env
+        echo "POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+        echo "POSTGRES_DB=${{ secrets.DB_NAME }}" >> .env
+    
+    # 2. SSL 인증서 복사 (중요!)
+    - name: Copy existing Certs
+      run: |
+        mkdir -p certs
+        cp /home/bhsong/server-project/certs/* ./certs/ || echo "Warning: Certs not found on host path."
+    
+    # 3. Docker Compose 재시작
+    - name: Restart Docker Containers
+      run: |
+        docker-compose down
+        docker-compose up -d --build
+        docker image prune -f         # 불필요한 이미지 삭제 (용량 관리)

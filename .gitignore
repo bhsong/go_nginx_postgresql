@@ -12,3 +12,5 @@ go-app/tmp/
 .DS_Store
 .idea/
 .vscode/
+
+actions-runner/
