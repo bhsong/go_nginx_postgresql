@@ -64,5 +64,5 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 결과 출력
-	fmt.Fprintf(w, "Welcome! You are visitor number: %d\nDB Status: Data Saved!", count)
+	fmt.Fprintf(w, "Welcome! You are visitor number: %d\nDB Status: Data Saved!!!", count)
 }
